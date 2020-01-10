@@ -5,11 +5,15 @@ using UnityEngine;
 public class BalloonController : MonoBehaviour
 {
     Transform balloon;
+    Transform player1;
+    Transform player2; 
     Rigidbody2D rb; 
     public float balloonForce; 
      
     private void Start()
     {
+        player1 = GameObject.Find("Player1").GetComponent<Transform>();
+        player2 = GameObject.Find("Player2").GetComponent<Transform>(); 
         balloon = GameObject.Find("Balloon").GetComponent<Transform>();
         rb = balloon.GetComponent<Rigidbody2D>();
         int rand = Random.Range(1, 3);
@@ -20,13 +24,16 @@ public class BalloonController : MonoBehaviour
    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Player" && balloon.position.x > 0) // Checks if player is touching balloon - if so, shoots balloon left/right depending on balloons position
+        if (collision.collider.name == "Player1" && player1.position.x > player2.position.x) // Checks if player is touching balloon - if so, shoots balloon left/right depending on balloons position
         {
             rb.AddForce(new Vector2(-1, 1) * balloonForce * Time.deltaTime);
         }
-        else if (collision.collider.tag == "Player" && balloon.position.x < 0)
+        else if(collision.collider.name == "Player1") { rb.AddForce(new Vector2(1, 1) * balloonForce * Time.deltaTime); }
+        
+        if (collision.collider.name == "Player2" && player1.position.x > player2.position.x) 
         {
             rb.AddForce(new Vector2(1, 1) * balloonForce * Time.deltaTime);
         }
+        else if(collision.collider.name == "Player2") { rb.AddForce(new Vector2(-1, 1) * balloonForce * Time.deltaTime); }
     }
 }

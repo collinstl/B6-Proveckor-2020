@@ -31,9 +31,9 @@ public class GameManager : MonoBehaviour
         #region Camera
         float cDistance1 = Vector2.Distance(new Vector2(player1.position.x, 0), new Vector2(cam.transform.position.x, 0)); // Distance between player1 and Camera
         float cDistance2 = Vector2.Distance(new Vector2(player2.position.x, 0), new Vector2(cam.transform.position.x, 0));  // Distance between player2 and Camera
-        if(cDistance1 > 11.3f) { cam.orthographicSize = cDistance1 * .44f; } // Zooms out camera if player1 goes out of the screen
-        else if(cDistance2 > 11.3f) { cam.orthographicSize = cDistance2 * .44f; }// Zooms out camera if player2 goes out of the screen
-        else { cam.orthographicSize = 5; }
+        if(cDistance1 > 11.3f && player1.position.x < 0) { cam.orthographicSize = cDistance1 * .44f;} // Zooms out camera if player1 goes out of the screen
+        else if(cDistance2 > 11.3f && player2.position.x > 0) { cam.orthographicSize = cDistance2 * .44f;}// Zooms out camera if player2 goes out of the screen
+        else { cam.orthographicSize = camDefaultSize; }
         #endregion Camera 
     }
 }
