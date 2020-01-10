@@ -12,11 +12,11 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (this.name == "Player1")
+        if (this.name == "Player1") //Checks if player1 has touched ground - if so, player1 can jump again
         {
             pc.jump1 = false; 
         }
-        else
+        else //Checks if player2 has touched ground - if so, player2 can jump again
         {
             pc.jump2 = false; 
         }
