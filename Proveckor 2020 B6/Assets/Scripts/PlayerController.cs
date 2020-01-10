@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
     Transform player2;
 
     public float speed = 10;
-    public float jumpForce = 100; 
+    public float jumpForce = 100;
+    public bool jump1 = false;
+    public bool jump2 = false; 
 
     private void Start()
     {
@@ -33,18 +35,30 @@ public class PlayerController : MonoBehaviour
             {
                 if(i < 2)
                 {
-                    rb1.velocity = dir[i] * speed * 60 * Time.deltaTime; 
+                    rb1.velocity += dir[i] * speed * 60 * Time.deltaTime; 
                 }
                 else if(i > 1 && i < 4)
                 {
-                    rb2.velocity = dir[i] * speed * 60 * Time.deltaTime; 
-                }
-                if(i == 4) { rb1.AddForce(Vector2.up * jumpForce * Time.deltaTime); }
-                if(i == 5) { rb2.AddForce(Vector2.up * jumpForce * Time.deltaTime); }
+                    rb2.velocity += dir[i] * speed * 60 * Time.deltaTime; 
+                }               
             }
         }
 
-        rb1.velocity = new Vector2(rb1.velocity.x * vel, rb1.velocity.y * vel);
-        rb2.velocity = new Vector2(rb2.velocity.x * vel, rb2.velocity.y * vel);
+        rb1.velocity = new Vector2(rb1.velocity.x * vel, rb1.velocity.y);
+        rb2.velocity = new Vector2(rb2.velocity.x * vel, rb2.velocity.y);
+
+        if (Input.GetKeyDown(movementKeys[4]) && !jump1)
+        {
+            rb1.AddForce(Vector2.up * jumpForce * Time.deltaTime);
+            jump1 = true;
+        }
+
+        if (Input.GetKeyDown(movementKeys[5]) && !jump2)
+        {
+            rb2.AddForce(Vector2.up * jumpForce * Time.deltaTime);
+            jump2 = true;
+        }
+
     }
+       
 }
