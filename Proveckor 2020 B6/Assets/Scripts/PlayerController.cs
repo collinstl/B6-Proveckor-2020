@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public KeyCode[] movementKeys = { KeyCode.D, KeyCode.A, KeyCode.RightArrow, KeyCode.LeftArrow, KeyCode.W, KeyCode.UpArrow };    
     public Vector2[] dir = { Vector2.right, Vector2.left, Vector2.right, Vector2.left };
+ 
 
     Rigidbody2D rb1;
     Rigidbody2D rb2;
@@ -15,7 +16,10 @@ public class PlayerController : MonoBehaviour
     public float speed = 10;
     public float jumpForce = 100;
     public bool jump1 = false;
-    public bool jump2 = false; 
+    public bool jump2 = false;
+
+    public Animator P1animator;
+    public Animator P2animator;
 
     private void Start()
     {
@@ -59,6 +63,17 @@ public class PlayerController : MonoBehaviour
             jump2 = true;
         }
 
+        Animation();
+
+    }
+
+    void Animation()
+    {
+        P1animator.SetFloat("Speed", Input.GetAxisRaw("Horizontal"));
+        P1animator.SetBool("OnGround", !jump1);
+
+        P2animator.SetFloat("Speed", Input.GetAxisRaw("Horizontal"));
+        P2animator.SetBool("OnGround", !jump2);
     }
        
 }
