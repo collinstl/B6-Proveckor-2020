@@ -383,7 +383,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.14, z: -10}
+  m_LocalPosition: {x: 0, y: 1.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -429,8 +429,6 @@ MonoBehaviour:
   jumpForce: 15000
   jump1: 0
   jump2: 0
-  P1animator: {fileID: 814815437}
-  P2animator: {fileID: 1898701016}
 --- !u!4 &572406292
 Transform:
   m_ObjectHideFlags: 0
@@ -629,8 +627,6 @@ GameObject:
   - component: {fileID: 814815433}
   - component: {fileID: 814815434}
   - component: {fileID: 814815435}
-  - component: {fileID: 814815437}
-  - component: {fileID: 814815436}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Player
@@ -687,7 +683,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.9309361, y: -0.834708}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -698,7 +694,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.5506434, y: 8.984491}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &814815435
 MonoBehaviour:
@@ -1029,8 +1025,6 @@ GameObject:
   - component: {fileID: 1898701011}
   - component: {fileID: 1898701013}
   - component: {fileID: 1898701014}
-  - component: {fileID: 1898701016}
-  - component: {fileID: 1898701015}
   m_Layer: 8
   m_Name: Player2
   m_TagString: Player
@@ -1087,7 +1081,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.9023938, y: -0.714653}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1098,7 +1092,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.5669813, y: 9.194817}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1898701014
 MonoBehaviour:
