@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 444965350}
   m_Layer: 0
   m_Name: Balloon
-  m_TagString: Untagged
+  m_TagString: Balloon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -425,10 +425,12 @@ MonoBehaviour:
   - {x: -1, y: 0}
   - {x: 1, y: 0}
   - {x: -1, y: 0}
-  speed: 4
+  player1Speed: 4
+  player2Speed: 4
   jumpForce: 15000
   jump1: 0
   jump2: 0
+  brakePercentage: 0.8
 --- !u!4 &572406292
 Transform:
   m_ObjectHideFlags: 0
@@ -455,6 +457,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf6df1c132352441b56e793f2655ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player1Streak: 0
+  player2Streak: 0
+  camDefaultSize: 7
+  eventTimer: 10
+  catPrefab: {fileID: 6531054301197472329, guid: 8d1d0933559f77a428827b510f6ed483,
+    type: 3}
+  catForce: 65000
 --- !u!1 &684142420
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +727,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1092855963}
   - component: {fileID: 1092855962}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrier_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +783,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1435176977}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,7 +819,7 @@ GameObject:
   - component: {fileID: 1441292475}
   - component: {fileID: 1441292474}
   - component: {fileID: 1441292473}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoofTemp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -917,7 +926,7 @@ GameObject:
   - component: {fileID: 1629089998}
   - component: {fileID: 1629089997}
   - component: {fileID: 1629089999}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GroundTemp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1116,7 +1125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2039205803}
   - component: {fileID: 2039205802}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Barrier_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
