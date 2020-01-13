@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 444965350}
   m_Layer: 0
   m_Name: Balloon
-  m_TagString: Untagged
+  m_TagString: Balloon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -455,6 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddf6df1c132352441b56e793f2655ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDefaultSize: 7
 --- !u!1 &684142420
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,6 +709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2921bae0c1f02134b8c7dc800cce54e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  streak: 0
 --- !u!1 &1092855961
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,6 +1108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2921bae0c1f02134b8c7dc800cce54e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  streak: 0
 --- !u!1 &2039205801
 GameObject:
   m_ObjectHideFlags: 0
