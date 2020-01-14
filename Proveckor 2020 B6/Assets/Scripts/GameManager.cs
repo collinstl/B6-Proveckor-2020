@@ -9,8 +9,12 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float player1Streak; //Streak for balloon hits in a row - player1 
     Transform player2;
     [HideInInspector] public float player2Streak; //Streak for balloon hits in a row - player2 
-    Transform balloon; 
-    public int points; 
+    Transform balloon;
+    [HideInInspector] public Animator balloonAnimator; 
+
+    public float countdownTimer = 5;
+    public int points;
+    [HideInInspector] public bool isPaused = true;
     #region Camera - Variables, Alexander Dolk
     /*Camera cam;
     Rigidbody2D cameraRigidbody;
@@ -21,8 +25,7 @@ public class GameManager : MonoBehaviour
     public GameObject catPrefab;
     public float catForce = 1000;
     #endregion Random Events, Alexander Dolk
-    public float countdownTimer = 5;
-    [HideInInspector] public bool isPaused = true; 
+    
 
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(RandomEvent());
         balloon = GameObject.Find("Balloon").GetComponent<Transform>();
+        balloonAnimator = balloon.GetComponentInChildren<Animator>();
         #region Camera - Components, Alexander Dolk 
         /*cam = Camera.main;
         cameraRigidbody = cam.GetComponent<Rigidbody2D>();

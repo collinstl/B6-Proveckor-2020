@@ -98,8 +98,8 @@ public class BalloonController : MonoBehaviour
         }
 
         //Gameover
-        if (collision.collider.tag == "Ground") { gM.GameOver(); } //Declares Gameover if balloon touches ground
-        if (collision.collider.tag == "Event") { gM.GameOver(); } //Declares Gameover if balloon touches cat / other event
+        if (collision.collider.tag == "Ground") { gM.GameOver(); gM.balloonAnimator.SetBool("Gameover", true); } //Declares Gameover if balloon touches ground
+        if (collision.collider.tag == "Event") { gM.GameOver(); gM.balloonAnimator.SetBool("Gameover", true); } //Declares Gameover if balloon touches cat / other event
     }
 
     IEnumerator VelocityChange()
