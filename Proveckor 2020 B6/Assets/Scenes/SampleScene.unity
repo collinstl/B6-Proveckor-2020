@@ -460,10 +460,12 @@ MonoBehaviour:
   player1Streak: 0
   player2Streak: 0
   camDefaultSize: 7
-  eventTimer: 10
+  eventTimer: 2
   catPrefab: {fileID: 6531054301197472329, guid: 8d1d0933559f77a428827b510f6ed483,
     type: 3}
-  catForce: 65000
+  catForce: 55000
+  countdownTimer: 5
+  isPaused: 1
 --- !u!1 &684142420
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +930,7 @@ GameObject:
   - component: {fileID: 1629089999}
   m_Layer: 10
   m_Name: GroundTemp
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
