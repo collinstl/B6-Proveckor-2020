@@ -29,12 +29,14 @@ public class BalloonController : MonoBehaviour
         if (collision.collider.name == "Player1" && player1.position.x > player2.position.x) // Checks if player is touching balloon - if so, shoots balloon left/right depending on balloons position
         {
             rb.AddForce(new Vector2(-1, 1) * balloonForce * Time.deltaTime);
+            gM.points += 1;
         }
         else if(collision.collider.name == "Player1") { rb.AddForce(new Vector2(1, 1) * balloonForce * Time.deltaTime); }
         
         if (collision.collider.name == "Player2" && player1.position.x > player2.position.x) // Checks if player is touching balloon - if so, shoots balloon left/right depending on balloons position
         {
             rb.AddForce(new Vector2(1, 1) * balloonForce * Time.deltaTime);
+            gM.points += 1; 
         }
         else if(collision.collider.name == "Player2") { rb.AddForce(new Vector2(-1, 1) * balloonForce * Time.deltaTime); }
 

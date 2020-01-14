@@ -6,13 +6,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     Transform player1;
-    public float player1Streak; //Streak for balloon hits in a row - player1 
+    [HideInInspector] public float player1Streak; //Streak for balloon hits in a row - player1 
     Transform player2;
-    public float player2Streak; //Streak for balloon hits in a row - player2 
+    [HideInInspector] public float player2Streak; //Streak for balloon hits in a row - player2 
+    public int points; 
     #region Camera - Variables, Alexander Dolk
-    Camera cam;
+    /*Camera cam;
     Rigidbody2D cameraRigidbody;
-    public float camDefaultSize = 7; // Default Size/Zoom of camera 
+    public float camDefaultSize = 7; // Default Size/Zoom of camera */
     #endregion Camera - Variables, Alexander Dolk
     #region Random Events, Alexander Dolk   
     public float eventTimer = 10;
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
     public float catForce = 1000;
     #endregion Random Events, Alexander Dolk
     public float countdownTimer = 5;
-    public bool isPaused = true; 
+    [HideInInspector] public bool isPaused = true; 
 
     private void Awake()
     {
@@ -31,20 +32,20 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(RandomEvent());
         #region Camera - Components, Alexander Dolk 
-        cam = Camera.main;
+        /*cam = Camera.main;
         cameraRigidbody = cam.GetComponent<Rigidbody2D>();
         player1 = GameObject.Find("Player1").GetComponent<Transform>();
-        player2 = GameObject.Find("Player2").GetComponent<Transform>();
+        player2 = GameObject.Find("Player2").GetComponent<Transform>();*/
         #endregion Camera - Components, Alexander Dolk
     }
 
     private void Update()
     {
         #region Camera, Alexander Dolk
-        float cDistance1 = Vector2.Distance(new Vector2(player1.position.x, 0), new Vector2(cam.transform.position.x, 0));
+        /*float cDistance1 = Vector2.Distance(new Vector2(player1.position.x, 0), new Vector2(cam.transform.position.x, 0));
         float cDistance2 = Vector2.Distance(new Vector2(player2.position.x, 0), new Vector2(cam.transform.position.x, 0));
         if (cDistance1 + cDistance2 >= 11.3f) { cam.orthographicSize = (cDistance1 + cDistance2) * .44f; }
-        else if (cam.orthographicSize <= 7) { cam.orthographicSize = camDefaultSize; }
+        else if (cam.orthographicSize <= 7) { cam.orthographicSize = camDefaultSize; }*/
         #endregion Camera, Alexander Dolk 
     }
 
