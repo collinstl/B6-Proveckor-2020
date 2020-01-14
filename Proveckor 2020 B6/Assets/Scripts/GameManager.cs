@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float player1Streak; //Streak for balloon hits in a row - player1 
     Transform player2;
     [HideInInspector] public float player2Streak; //Streak for balloon hits in a row - player2 
+    Transform balloon; 
     public int points; 
     #region Camera - Variables, Alexander Dolk
     /*Camera cam;
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(RandomEvent());
+        balloon = GameObject.Find("Balloon").GetComponent<Transform>();
         #region Camera - Components, Alexander Dolk 
         /*cam = Camera.main;
         cameraRigidbody = cam.GetComponent<Rigidbody2D>();
@@ -81,5 +83,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //Temporary gameover reset
+        print("Points: " + points);
     }
 }

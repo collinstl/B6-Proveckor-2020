@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     public float player1Speed = 4;
     public float player2Speed = 4; 
-    public float jumpForce = 100;
+    public float jumpForce = 150;
     public bool jump1 = false;
     public bool jump2 = false;
     float vel;
