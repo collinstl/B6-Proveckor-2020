@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BalloonController : MonoBehaviour
 {
-    Transform balloon;
     Transform player1;
     Transform player2;
     Transform wallLeft;
@@ -25,10 +24,9 @@ public class BalloonController : MonoBehaviour
         gM = FindObjectOfType<GameManager>();
         player1 = GameObject.Find("Player1").GetComponent<Transform>();
         player2 = GameObject.Find("Player2").GetComponent<Transform>();
-        balloon = GameObject.Find("Balloon").GetComponent<Transform>();
         wallLeft = GameObject.Find("Barrier_Left").GetComponent<Transform>();
         wallRight = GameObject.Find("Barrier_Right").GetComponent<Transform>();
-        rb = balloon.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         int rand = Random.Range(1, 3);
         if (rand == 1) { rb.AddForce(new Vector2(1, 1) * 15000 * Time.deltaTime); }//Shoots balloon left/right at the start of the game
         if (rand == 2) { rb.AddForce(new Vector2(-1, 1) * 15000 * Time.deltaTime); }//Shoots balloon left/right at the start of the game
@@ -98,8 +96,8 @@ public class BalloonController : MonoBehaviour
         }
 
         //Gameover
-        if (collision.collider.tag == "Ground") { gM.GameOver(); gM.balloonAnimator.SetBool("Gameover", true); } //Declares Gameover if balloon touches ground
-        if (collision.collider.tag == "Event") { gM.GameOver(); gM.balloonAnimator.SetBool("Gameover", true); } //Declares Gameover if balloon touches cat / other event
+        if (collision.collider.tag == "Ground") { StartCoroutine(gM.GameOver()); gM.balloonAnimator.SetBool("Gameover", true); this.enabled = false; } //Declares Gameover if balloon touches ground
+        if (collision.collider.tag == "Event") { StartCoroutine(gM.GameOver()); gM.balloonAnimator.SetBool("Gameover", true); this.enabled = false; } //Declares Gameover if balloon touches cat / other event
     }
 
     IEnumerator VelocityChange()
