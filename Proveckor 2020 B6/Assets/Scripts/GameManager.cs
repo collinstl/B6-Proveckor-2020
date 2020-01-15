@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float player2Streak; //Streak for balloon hits in a row - player2 
     Transform balloon;
     
-    public GameObject balloonPrefab; 
+    public GameObject balloonPrefab;
+    public Animator catAnimator;
+    public GameObject[] catPoses; 
     [HideInInspector] public Animator balloonAnimator; 
     
     public float countdownTimer = 5;
@@ -37,8 +39,10 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        StartCoroutine(RandomEvent());             
-        balloonAnimator = balloon.GetComponentInChildren<Animator>();                
+        StartCoroutine(RandomEvent());
+        StartCoroutine(CatAnimation());
+        balloonAnimator = balloon.GetComponentInChildren<Animator>();
+        for(int i = 0; i < catPoses.Length; i++) { if (i != 0) { catPoses[i].SetActive(false); } }
         #region Camera - Components, Alexander Dolk 
         cam = Camera.main;
         /*cameraRigidbody = cam.GetComponent<Rigidbody2D>();
@@ -49,7 +53,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        cam.orthographicSize = Screen.width * Screen.height * (cam.orthographicSize / (Screen.width * Screen.height));
         #region Camera, Alexander Dolk
         /*float cDistance1 = Vector2.Distance(new Vector2(player1.position.x, 0), new Vector2(cam.transform.position.x, 0));
         float cDistance2 = Vector2.Distance(new Vector2(player2.position.x, 0), new Vector2(cam.transform.position.x, 0));
@@ -77,6 +80,20 @@ public class GameManager : MonoBehaviour
         Rigidbody2D catRigidbody = cat.GetComponent<Rigidbody2D>();
         Vector2 catDirection; catDirection.x = (rand == 1) ? -1 : 1; catDirection.y = 1; //Sets the correct direction for the cat to fly in 
         catRigidbody.AddForce(catDirection * catForce * Time.deltaTime); //Adds force to the cat
+    }
+
+    IEnumerator CatAnimation()
+    {
+        catAnimator.SetBool("Sleep", true);
+        print("Sleeping"); 
+        yield return new WaitForSeconds(eventTimer - 8);
+        print("Waking Up"); 
+        catAnimator.SetBool("Sleep", false);
+        catPoses[0].SetActive(false);
+        catPoses[1].SetActive(true);
+        catAnimator.SetBool("Wake", true);
+       
+
     }
 
     IEnumerator StartGame() //Starts the game after a few seconds so that players may prepare

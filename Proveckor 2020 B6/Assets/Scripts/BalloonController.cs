@@ -59,8 +59,7 @@ public class BalloonController : MonoBehaviour
                 calculateAngle = true;
             }
             //print("Angle: " + angle);
-        }
-        print("isIncreasing: " + isIncreasing); 
+        }        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
