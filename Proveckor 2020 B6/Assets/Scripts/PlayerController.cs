@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     public float player1Speed = 4;
     public float player2Speed = 4; 
-    public float jumpForce = 100;
+    public float jumpForce = 150;
     public bool jump1 = false;
     public bool jump2 = false;
     float vel;
@@ -38,26 +38,28 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         #region PlayerMovement, Alexander Dolk
-       
-        vel = brakePercentage * (1 / Time.deltaTime / 60); // Deacceleration velocity 
-
-        for (int i = 0; i < 6; i++)
+        if (!gM.isPaused)
         {
-            if (Input.GetKey(movementKeys[i])) //Checks for input
+            vel = brakePercentage * (1 / Time.deltaTime / 60); // Deacceleration velocity 
+
+            for (int i = 0; i < 6; i++)
             {
-                if (i < 2) //if buttons D/A are pressed - moves player1 right/left
+                if (Input.GetKey(movementKeys[i])) //Checks for input
                 {
-                    rb1.velocity += dir[i] * player1Speed * 60 * Time.deltaTime;
-                }
-                else if (i > 1 && i < 4) //if buttons ->/<- are pressed - moves player2 right/left
-                {
-                    rb2.velocity += dir[i] * player2Speed * 60 * Time.deltaTime;
+                    if (i < 2) //if buttons D/A are pressed - moves player1 right/left
+                    {
+                        rb1.velocity += dir[i] * player1Speed * 60 * Time.deltaTime;
+                    }
+                    else if (i > 1 && i < 4) //if buttons ->/<- are pressed - moves player2 right/left
+                    {
+                        rb2.velocity += dir[i] * player2Speed * 60 * Time.deltaTime;
+                    }
                 }
             }
-        }
 
-        rb1.velocity = new Vector2(rb1.velocity.x * vel, rb1.velocity.y); // Deaccelerates player1 constantly - keeping player from accelerating infinitly
-        rb2.velocity = new Vector2(rb2.velocity.x * vel, rb2.velocity.y);// Deaccelerates player2 constantly - keeping player from accelerating infinitly
+            rb1.velocity = new Vector2(rb1.velocity.x * vel, rb1.velocity.y); // Deaccelerates player1 constantly - keeping player from accelerating infinitly
+            rb2.velocity = new Vector2(rb2.velocity.x * vel, rb2.velocity.y);// Deaccelerates player2 constantly - keeping player from accelerating infinitly
+        }        
         
         if (Input.GetKeyDown(movementKeys[4]) && !jump1) //Checks if W is pressed - if so, player1 jumps
         {
