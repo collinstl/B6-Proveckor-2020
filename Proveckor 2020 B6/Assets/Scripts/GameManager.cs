@@ -10,12 +10,12 @@ public class GameManager : MonoBehaviour
     Transform player2;
     [HideInInspector] public float player2Streak; //Streak for balloon hits in a row - player2 
     Transform balloon;
-    
+
     public GameObject balloonPrefab;
-    public Animator catAnimator;
-    public GameObject[] catPoses; 
-    [HideInInspector] public Animator balloonAnimator; 
-    
+    public Animator[] catAnimators;
+    public GameObject[] catPoses;
+    [HideInInspector] public Animator balloonAnimator;
+
     public float countdownTimer = 5;
     public int points;
     [HideInInspector] public bool isPaused = true;
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(RandomEvent());
         StartCoroutine(CatAnimation());
         balloonAnimator = balloon.GetComponentInChildren<Animator>();
-        for(int i = 0; i < catPoses.Length; i++) { if (i != 0) { catPoses[i].SetActive(false); } }
+        for (int i = 0; i < catPoses.Length; i++) { if (i != 0) { catPoses[i].SetActive(false); } }
         #region Camera - Components, Alexander Dolk 
         cam = Camera.main;
         /*cameraRigidbody = cam.GetComponent<Rigidbody2D>();
@@ -66,7 +66,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(eventTimer);
         print("Random Event!");
         CatEvent();
+        yield return new WaitForSeconds(4);
         StartCoroutine(RandomEvent());
+        StartCoroutine(CatAnimation());
     }
 
     void CatEvent()
@@ -79,21 +81,37 @@ public class GameManager : MonoBehaviour
         cat = Instantiate(catPrefab, pos, Quaternion.identity);
         Rigidbody2D catRigidbody = cat.GetComponent<Rigidbody2D>();
         Vector2 catDirection; catDirection.x = (rand == 1) ? -1 : 1; catDirection.y = 1; //Sets the correct direction for the cat to fly in 
+        if (catDirection.x > 0) //Checks if cat is coming from left, if so - Flips sprite in the right direction
+        {
+            cat.GetComponentInChildren<Transform>().localScale = new Vector2(-cat.GetComponentInChildren<Transform>().localScale.x, cat.GetComponentInChildren<Transform>().localScale.y);
+            catRigidbody.AddTorque(-100);
+        }
+        else { catRigidbody.AddTorque(100); }
         catRigidbody.AddForce(catDirection * catForce * Time.deltaTime); //Adds force to the cat
+        Destroy(cat, 4);
     }
 
     IEnumerator CatAnimation()
     {
-        catAnimator.SetBool("Sleep", true);
-        print("Sleeping"); 
-        yield return new WaitForSeconds(eventTimer - 8);
-        print("Waking Up"); 
-        catAnimator.SetBool("Sleep", false);
+        catAnimators[0].SetBool("Sleep", true); //Sleep animation on loop until the event's closing in
+        yield return new WaitForSeconds(eventTimer - 8.4f); //8 seconds before the event, sleeping animation stops and the cat starts waking up (waking up animation) 
+        catAnimators[0].SetBool("Sleep", false);
         catPoses[0].SetActive(false);
         catPoses[1].SetActive(true);
-        catAnimator.SetBool("Wake", true);
-       
-
+        catAnimators[1].SetBool("Wake", true);
+        yield return new WaitForSeconds(5.3f); //after waking up animation, cat runs through the jump animation
+        catAnimators[1].SetBool("Wake", false);
+        catPoses[1].SetActive(false);
+        catPoses[2].SetActive(true);
+        catAnimators[2].SetBool("Jump", true);
+        yield return new WaitForSeconds(.6f); //after jumping, the cat runs through the walking animation and walks out of screen
+        catAnimators[2].SetBool("Jump", false);
+        catPoses[2].SetActive(false);
+        catPoses[3].SetActive(true);
+        catAnimators[3].SetBool("Walk", true);
+        yield return new WaitForSeconds(2.5f); //Everything has been run through and event starts
+        catAnimators[3].SetBool("Walk", false);
+        catPoses[3].SetActive(false);
     }
 
     IEnumerator StartGame() //Starts the game after a few seconds so that players may prepare
@@ -101,7 +119,7 @@ public class GameManager : MonoBehaviour
         print("Starting Soon!");
         yield return new WaitForSeconds(countdownTimer * Time.timeScale);
         Time.timeScale = 1;
-        isPaused = false; 
+        isPaused = false;
     }
 
     public IEnumerator GameOver() //Resets the game whenever the balloon has been destroyed
