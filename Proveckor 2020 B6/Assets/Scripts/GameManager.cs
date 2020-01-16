@@ -10,36 +10,42 @@ public class GameManager : MonoBehaviour
     Transform player2;
     [HideInInspector] public float player2Streak; //Streak for balloon hits in a row - player2 
     Transform balloon;
+    
+    public GameObject balloonPrefab;
+    public Animator catAnimator;
+    public GameObject[] catPoses; 
     [HideInInspector] public Animator balloonAnimator; 
-
+    
     public float countdownTimer = 5;
     public int points;
     [HideInInspector] public bool isPaused = true;
+
     #region Camera - Variables, Alexander Dolk
-    /*Camera cam;
-    Rigidbody2D cameraRigidbody;
+    Camera cam;
+    /*Rigidbody2D cameraRigidbody;
     public float camDefaultSize = 7; // Default Size/Zoom of camera */
     #endregion Camera - Variables, Alexander Dolk
     #region Random Events, Alexander Dolk   
     public float eventTimer = 10;
     public GameObject catPrefab;
     public float catForce = 1000;
-    #endregion Random Events, Alexander Dolk
-    
+    #endregion Random Events, Alexander Dolk    
 
     private void Awake()
     {
-        Time.timeScale = 0.000000000001f;
+        balloon = Instantiate(balloonPrefab, new Vector2(0, .2f), Quaternion.identity).GetComponent<Transform>();
+        Time.timeScale = 0.000000000001f; //Sets the timescale to almost zero making it still possible to have a countdowntimer with the game "paused"
         StartCoroutine(StartGame());
     }
     private void Start()
     {
         StartCoroutine(RandomEvent());
-        balloon = GameObject.Find("Balloon").GetComponent<Transform>();
+        StartCoroutine(CatAnimation());
         balloonAnimator = balloon.GetComponentInChildren<Animator>();
+        for(int i = 0; i < catPoses.Length; i++) { if (i != 0) { catPoses[i].SetActive(false); } }
         #region Camera - Components, Alexander Dolk 
-        /*cam = Camera.main;
-        cameraRigidbody = cam.GetComponent<Rigidbody2D>();
+        cam = Camera.main;
+        /*cameraRigidbody = cam.GetComponent<Rigidbody2D>();
         player1 = GameObject.Find("Player1").GetComponent<Transform>();
         player2 = GameObject.Find("Player2").GetComponent<Transform>();*/
         #endregion Camera - Components, Alexander Dolk
@@ -55,7 +61,7 @@ public class GameManager : MonoBehaviour
         #endregion Camera, Alexander Dolk 
     }
 
-    IEnumerator RandomEvent()
+    IEnumerator RandomEvent() //Starts a random event after the chosen time has gone to zero
     {
         yield return new WaitForSeconds(eventTimer);
         print("Random Event!");
@@ -76,7 +82,21 @@ public class GameManager : MonoBehaviour
         catRigidbody.AddForce(catDirection * catForce * Time.deltaTime); //Adds force to the cat
     }
 
-    IEnumerator StartGame()
+    IEnumerator CatAnimation()
+    {
+        catAnimator.SetBool("Sleep", true);
+        print("Sleeping"); 
+        yield return new WaitForSeconds(eventTimer - 8);
+        print("Waking Up"); 
+        catAnimator.SetBool("Sleep", false);
+        catPoses[0].SetActive(false);
+        catPoses[1].SetActive(true);
+        catAnimator.SetBool("Wake", true);
+       
+
+    }
+
+    IEnumerator StartGame() //Starts the game after a few seconds so that players may prepare
     {
         print("Starting Soon!");
         yield return new WaitForSeconds(countdownTimer * Time.timeScale);
@@ -84,8 +104,9 @@ public class GameManager : MonoBehaviour
         isPaused = false; 
     }
 
-    public void GameOver()
+    public IEnumerator GameOver() //Resets the game whenever the balloon has been destroyed
     {
+        yield return new WaitForSeconds(5);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //Temporary gameover reset
         print("Points: " + points);
     }
