@@ -7,16 +7,10 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
 
-    private void Update()
-    { 
-        
-    }
-
-
 
     public void PlayButton()
     {
-        SceneManager.LoadScene("Sandbox");
+        SceneManager.LoadScene("MainScene");
     }
     public void QuitButton()
     {
