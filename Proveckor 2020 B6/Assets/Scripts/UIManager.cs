@@ -6,7 +6,18 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject pauseMenu;
+    public GameObject pause;
+    public GameObject setting;
+    bool pauseIsActive = false;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseMenu();
+        }
+    }
 
     public void PlayButton()
     {
@@ -19,5 +30,27 @@ public class UIManager : MonoBehaviour
     public void MainMenuButton()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void PauseMenu()
+    {
+        if(pauseIsActive)
+        {
+            pauseMenu.SetActive(false);
+            pauseIsActive = false;
+            pause.SetActive(true);
+            setting.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else
+        {
+            pauseMenu.SetActive(true);
+            pauseIsActive = true;
+            Time.timeScale = 0;
+        }
+    }
+    public void TimeReset()
+    {
+        Time.timeScale = 1;
     }
 }
