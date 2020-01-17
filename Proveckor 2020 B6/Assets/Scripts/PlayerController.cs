@@ -11,18 +11,21 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D rb1;
     Rigidbody2D rb2;
-    Transform player1;
+    Transform player1;   
     Transform player2;
-
     public float player1Speed = 4;
     public float player2Speed = 4; 
     public float jumpForce = 150;
     public bool jump1 = false;
     public bool jump2 = false;
     float vel;
-    public float brakePercentage = .8f; 
+    public float brakePercentage = .8f;
     #endregion PlayerMovement - Variables/Components, Alexander Dolk
-
+    #region PlayerGFX - Variables/Components, Alexander Dolk
+    Vector2 p1Scale;
+    Vector2 p2Scale;
+    public Animator[] playerAnimators; 
+    #endregion PlayerGFX - Variables/Components, Alexander Dolk
     GameManager gM; 
     private void Start()
     {
@@ -32,6 +35,10 @@ public class PlayerController : MonoBehaviour
         player2 = GameObject.Find("Player2").GetComponent<Transform>();
         rb2 = player2.GetComponent<Rigidbody2D>();
         #endregion PlayerMovement - Components, Alexander Dolk
+        #region PlayerGFX - Components, Alexander Dolk
+        p1Scale = player1.GetComponentInChildren<Transform>().localScale;
+        p2Scale = player2.GetComponentInChildren<Transform>().localScale;
+        #endregion PlayerGFX - Components, Alexander Dolk
         gM = FindObjectOfType<GameManager>(); 
     }
 
@@ -73,6 +80,17 @@ public class PlayerController : MonoBehaviour
             jump2 = true;
         }
         #endregion PlayerMovement, Alexander Dolk
+        #region PlayerGFX, Alexander Dolk
+        Transform player1Sprite = player1.GetComponentInChildren<Transform>();       
+        Transform player2Sprite = player2.GetComponentInChildren<Transform>();       
+        if (Input.GetKeyDown(movementKeys[0]) && player1Sprite.localScale.x < 0) { player1Sprite.localScale = p1Scale; } //Flips player1's sprite if it's looking in the other direction 
+        else if(Input.GetKeyDown(movementKeys[1]) && player1Sprite.localScale.x > 0) { player1Sprite.localScale = new Vector2(-p1Scale.x, p1Scale.y); }//Flips player1's sprite if it's looking in the other direction 
+        if (Input.GetKeyDown(movementKeys[2]) && player2Sprite.localScale.x < 0) { player2Sprite.localScale = new Vector2(-p2Scale.x, p2Scale.y); }//Flips player2's sprite if it's looking in the other direction 
+        else if (Input.GetKeyDown(movementKeys[3]) && player2Sprite.localScale.x > 0) { player2Sprite.localScale = p2Scale; } //Flips player2's sprite if it's looking in the other direction 
+
+        playerAnimators[0].SetFloat("Speed", rb1.velocity.x);
+        playerAnimators[1].SetFloat("Speed", rb2.velocity.x); 
+        #endregion PlayerGFX, Alexander Dolk
     }
 
 }
