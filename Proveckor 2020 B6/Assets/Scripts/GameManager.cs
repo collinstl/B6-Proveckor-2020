@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public int points;
     [HideInInspector] public bool isPaused = true;
 
+    bool firstEventRound = true;
+
     #region Camera - Variables, Alexander Dolk
     Camera cam;
     /*Rigidbody2D cameraRigidbody;
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        balloon = Instantiate(balloonPrefab, new Vector2(0, .2f), Quaternion.identity).GetComponent<Transform>();
+        //balloon = Instantiate(balloonPrefab, new Vector2(0, .2f), Quaternion.identity).GetComponent<Transform>();
         Time.timeScale = 0.000000000001f; //Sets the timescale to almost zero making it still possible to have a countdowntimer with the game "paused"
         StartCoroutine(StartGame());
     }
@@ -41,8 +43,8 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(RandomEvent());
         StartCoroutine(CatAnimation());
-        balloonAnimator = balloon.GetComponentInChildren<Animator>();
-        for (int i = 0; i < catPoses.Length; i++) { if (i != 0) { catPoses[i].SetActive(false); } }
+        //balloonAnimator = balloon.GetComponentInChildren<Animator>();
+        for (int i = 0; i < catPoses.Length; i++) { if (i != 1) { catPoses[i].SetActive(false); } }
         #region Camera - Components, Alexander Dolk 
         cam = Camera.main;
         /*cameraRigidbody = cam.GetComponent<Rigidbody2D>();
@@ -64,8 +66,8 @@ public class GameManager : MonoBehaviour
     IEnumerator RandomEvent() //Starts a random event after the chosen time has gone to zero
     {
         yield return new WaitForSeconds(eventTimer);
-        print("Random Event!");
         CatEvent();
+        firstEventRound = false;
         yield return new WaitForSeconds(4);
         StartCoroutine(RandomEvent());
         StartCoroutine(CatAnimation());
@@ -93,8 +95,30 @@ public class GameManager : MonoBehaviour
 
     IEnumerator CatAnimation()
     {
-        catAnimators[0].SetBool("Sleep", true); //Sleep animation on loop until the event's closing in
-        yield return new WaitForSeconds(eventTimer - 8.4f); //8 seconds before the event, sleeping animation stops and the cat starts waking up (waking up animation) 
+        #region KUK
+        /*if (!firstEventRound)
+        {
+            catPoses[4].SetActive(true);
+            catAnimators[4].SetBool("Walk", true);
+            print("Before");
+            yield return new WaitForSeconds(3.2f);
+        }
+        print("After");
+        catAnimators[4].SetBool("Walk", false);
+        catPoses[4].SetActive(false);
+        catPoses[5].SetActive(true);
+        catAnimators[5].SetBool("Jump", true);
+        yield return new WaitForSeconds(.25f);
+        catAnimators[5].SetBool("Jump", false);
+        catPoses[5].SetActive(false);
+        catPoses[6].SetActive(true);
+        catAnimators[6].SetBool("FallAsleep", true);
+        yield return new WaitForSeconds(2);
+        catAnimators[6].SetBool("FallAsleep", false);
+        catPoses[6].SetActive(false);
+        catPoses[0].SetActive(true);
+        catAnimators[0].SetBool("Sleep", true); //Sleep animation on loop until the event's closing in*/
+        yield return new WaitForSeconds(eventTimer - 8.4f); //13.85 seconds before the event, sleeping animation stops and the cat starts waking up (waking up animation) 
         catAnimators[0].SetBool("Sleep", false);
         catPoses[0].SetActive(false);
         catPoses[1].SetActive(true);
@@ -111,7 +135,19 @@ public class GameManager : MonoBehaviour
         catAnimators[3].SetBool("Walk", true);
         yield return new WaitForSeconds(2.5f); //Everything has been run through and event starts
         catAnimators[3].SetBool("Walk", false);
-        catPoses[3].SetActive(false);
+        catPoses[3].SetActive(false); 
+        #endregion KUK
+        /* print("Walking in"); 
+         catPoses[4].SetActive(true);
+         catAnimators[4].SetBool("Walk", true);
+         yield return new WaitForSeconds(4);
+         catAnimators[4].SetBool("Walk", false);
+         catPoses[4].SetActive(false);
+         catPoses[5].SetActive(true);
+         catAnimators[5].SetBool("Jump", true);
+         yield return new WaitForSeconds(.26f);
+         catAnimators[5].SetBool("Jump", false);
+         catPoses[5].SetActive(false); */
     }
 
     IEnumerator StartGame() //Starts the game after a few seconds so that players may prepare
