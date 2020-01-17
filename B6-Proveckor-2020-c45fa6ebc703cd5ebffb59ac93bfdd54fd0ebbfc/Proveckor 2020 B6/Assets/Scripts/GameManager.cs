@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        balloon = Instantiate(balloonPrefab, new Vector2(0, .2f), Quaternion.identity).GetComponent<Transform>();
+        //balloon = Instantiate(balloonPrefab, new Vector2(0, .2f), Quaternion.identity).GetComponent<Transform>();
         Time.timeScale = 0.000000000001f; //Sets the timescale to almost zero making it still possible to have a countdowntimer with the game "paused"
         StartCoroutine(StartGame());
     }
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(RandomEvent());
         StartCoroutine(CatAnimation());
-        balloonAnimator = balloon.GetComponentInChildren<Animator>();
+        //balloonAnimator = balloon.GetComponentInChildren<Animator>();
         for (int i = 0; i < catPoses.Length; i++) { if (i != 0) { catPoses[i].SetActive(false); } }
         #region Camera - Components, Alexander Dolk 
         cam = Camera.main;

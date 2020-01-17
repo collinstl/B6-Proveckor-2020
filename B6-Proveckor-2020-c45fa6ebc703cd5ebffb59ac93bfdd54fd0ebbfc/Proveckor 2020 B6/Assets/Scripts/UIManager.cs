@@ -6,10 +6,18 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject pauseMenu;
-    public GameObject pause;
-    public GameObject setting;
-    bool pauseIsActive = false;
+    GameObject pauseMenu;
+    GameObject pause;
+    GameObject setting;
+    [HideInInspector]public bool pauseIsActive = false;
+
+    private void Start()
+    {
+        pauseMenu = GameObject.Find("PauseMenu");
+        pause = GameObject.Find("Pause");
+        setting = GameObject.Find("Settings");
+        pauseMenu.SetActive(false); 
+    }
 
     private void Update()
     {

@@ -20,10 +20,16 @@ public class PlayerController : MonoBehaviour
     public bool jump1 = false;
     public bool jump2 = false;
     float vel;
-    public float brakePercentage = .8f; 
+    public float brakePercentage = .8f;
     #endregion PlayerMovement - Variables/Components, Alexander Dolk
+    #region PlayerGFX - Variables/Components, Alexander Dolk
+    Vector2 player1Scale;
+    Vector2 player2Scale;
+    public Animator[] playerAnimators; 
+    #endregion PlayerGFX - Variables/Components, Alexander Dolk
 
-    GameManager gM; 
+    GameManager gM;
+    UIManager UIM; 
     private void Start()
     {
         #region PlayerMovement - Components, Alexander Dolk
@@ -32,13 +38,18 @@ public class PlayerController : MonoBehaviour
         player2 = GameObject.Find("Player2").GetComponent<Transform>();
         rb2 = player2.GetComponent<Rigidbody2D>();
         #endregion PlayerMovement - Components, Alexander Dolk
-        gM = FindObjectOfType<GameManager>(); 
+        #region PlayerGFX - Components, Alexander Dolk  
+        player1Scale = player1.localScale;
+        player2Scale = player2.localScale; 
+        #endregion PlayerGFX - Components, Alexander Dolk
+        gM = FindObjectOfType<GameManager>();
+        UIM = FindObjectOfType<UIManager>(); 
     }
 
     private void Update()
     {
         #region PlayerMovement, Alexander Dolk
-        if (!gM.isPaused)
+        if (!gM.isPaused && !UIM.pauseIsActive)
         {
             vel = brakePercentage * (1 / Time.deltaTime / 60); // Deacceleration velocity 
 
@@ -73,6 +84,15 @@ public class PlayerController : MonoBehaviour
             jump2 = true;
         }
         #endregion PlayerMovement, Alexander Dolk
+        #region PlayerGFX, Alexander Dolk
+        playerAnimators[0].SetFloat("Speed", rb1.velocity.x);
+        playerAnimators[1].SetFloat("Speed", rb2.velocity.x); 
+
+        if(Input.GetKeyDown(movementKeys[0]) && player1.localScale.x < 0) { player1.localScale = new Vector2(player1Scale.x, player1Scale.y); }
+        else if(Input.GetKeyDown(movementKeys[1]) && player1.localScale.x > 0) { player1.localScale = new Vector2(-player1Scale.x, player1Scale.y); }
+        if(Input.GetKeyDown(movementKeys[2]) && player2.localScale.x < 0) { print("Test"); player2.localScale = new Vector2(-player2Scale.x, player2Scale.y); }
+        else if(Input.GetKeyDown(movementKeys[3]) && player2.localScale.x > 0) { print("Test"); player2.localScale = new Vector2(player2Scale.x, player2Scale.y); }
+        #endregion PlayerGFX, Alexander Dolk
     }
 
 }

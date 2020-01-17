@@ -468,6 +468,9 @@ MonoBehaviour:
   jump1: 0
   jump2: 0
   brakePercentage: 0.8
+  playerAnimators:
+  - {fileID: 810435363}
+  - {fileID: 684142423}
 --- !u!4 &572406292
 Transform:
   m_ObjectHideFlags: 0
@@ -509,7 +512,7 @@ MonoBehaviour:
   - {fileID: 786270577}
   - {fileID: 1431039671}
   balloonAnimator: {fileID: 0}
-  countdownTimer: 5
+  countdownTimer: 1
   points: 0
   isPaused: 1
   eventTimer: 10
@@ -526,6 +529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684142421}
   - component: {fileID: 684142422}
+  - component: {fileID: 684142423}
   m_Layer: 8
   m_Name: GFX
   m_TagString: Untagged
@@ -597,6 +601,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &684142423
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684142420}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6a88f540700004b4abfd46cd12454fae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &707246594
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &709951376
 Transform:
   m_ObjectHideFlags: 0
@@ -816,6 +839,7 @@ GameObject:
   m_Component:
   - component: {fileID: 810435361}
   - component: {fileID: 810435362}
+  - component: {fileID: 810435363}
   m_Layer: 8
   m_Name: GFX
   m_TagString: Untagged
@@ -887,6 +911,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &810435363
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810435360}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a7ff8a9774d31cc4fa241bc674049f89, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &814815431
 GameObject:
   m_ObjectHideFlags: 0
@@ -2137,9 +2180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a42464f513850df4d90bf703387bb2ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 709951375}
-  pause: {fileID: 825966751}
-  setting: {fileID: 707246594}
+  pauseIsActive: 0
 --- !u!4 &1657457967
 Transform:
   m_ObjectHideFlags: 0
