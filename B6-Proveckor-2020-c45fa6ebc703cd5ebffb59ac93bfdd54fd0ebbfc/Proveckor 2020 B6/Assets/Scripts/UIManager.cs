@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GameObject pauseMenu;
-    public GameObject pause;
     public GameObject setting;
     [HideInInspector] public bool pauseIsActive = false;
 
@@ -57,7 +56,6 @@ public class UIManager : MonoBehaviour
         {
             pauseMenu.SetActive(false);
             pauseIsActive = false;
-            pause.SetActive(true);
             setting.SetActive(false);
             Time.timeScale = 1;
         }

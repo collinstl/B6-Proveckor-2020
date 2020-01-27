@@ -19,7 +19,7 @@ public class SettingsScript : MonoBehaviour
 
     public void SetQuality(int qualityInex)
     {
-
+        QualitySettings.SetQualityLevel(qualityInex);
     }
 
 }
