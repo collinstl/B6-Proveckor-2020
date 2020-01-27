@@ -10,33 +10,45 @@ public class UIManager : MonoBehaviour
     public GameObject setting;
     [HideInInspector] public bool pauseIsActive = false;
 
-    //Scaling 
-    public RectTransform[] uiComponents;
-    public RectTransform[] parents;
-
     Vector2 resolution;
+
+    [System.Serializable]
+    public class UIComponent
+    {
+        public RectTransform Component;
+        [HideInInspector] public Vector2 sizePercentage;
+        [HideInInspector] public Vector2 posPercentage; 
+        
+    }
+    public UIComponent[] UIComponents;
+
+    Scaler scaler; 
     private void Start()
     {
+        scaler = GetComponent<Scaler>(); 
         resolution = new Vector2(Screen.width, Screen.height);
+        for (int i = 0; i < UIComponents.Length; i++)
+        {
+            UIComponent component = UIComponents[i];
+            Vector2 size = scaler.sizeList[i];
+            Vector2 pos = scaler.posList[i];
+            component.sizePercentage = size;
+            component.posPercentage = pos; 
+            UIScaling(component.Component, component.sizePercentage.x, component.sizePercentage.y, component.posPercentage.x, component.posPercentage.y);
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PauseMenu();
-        }
         if (resolution.x != Screen.width || resolution.y != Screen.height)
         {
-            for (int i = 0; i < uiComponents.Length; i++)
+            for (int i = 0; i < UIComponents.Length; i++)
             {
-                Scaling(uiComponents[i], parents[i]);
+                UIComponent component = UIComponents[i];
+                UIScaling(component.Component, component.sizePercentage.x, component.sizePercentage.y, component.posPercentage.x, component.posPercentage.y);
             }
-            resolution = new Vector2(Screen.width, Screen.height);
         }
-
     }
-
     public void PlayButton()
     {
         SceneManager.LoadScene("MainScene");
@@ -71,22 +83,16 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    void Scaling(RectTransform uiTransform, RectTransform parent)
-    {
-        //Scale
-        float sizeX = uiTransform.sizeDelta.x * (1 + (uiTransform.sizeDelta.x / parent.sizeDelta.x));
-        float sizeY = uiTransform.sizeDelta.y * (1 + (uiTransform.sizeDelta.y / parent.sizeDelta.y));
-        uiTransform.sizeDelta = new Vector2(sizeX, sizeY);
 
-        //Position
-        float edgeOfParentX = uiTransform.anchoredPosition.x > 0 ? parent.anchoredPosition.x + (parent.sizeDelta.x / 2) : parent.anchoredPosition.x - (-parent.sizeDelta.x / 2);
-        float edgeOfParentY = uiTransform.anchoredPosition.y > 0 ? parent.anchoredPosition.y + (parent.sizeDelta.y / 2) : parent.anchoredPosition.y - (-parent.sizeDelta.y / 2);
-        float offsetX = uiTransform.anchoredPosition.x > 0 ? edgeOfParentX - (uiTransform.anchoredPosition.x + uiTransform.anchoredPosition.x / 2) : edgeOfParentX + (uiTransform.anchoredPosition.x - uiTransform.anchoredPosition.x / 2); //Distance between edge of child ui and parent ui (X)
-        float offsetY = uiTransform.anchoredPosition.y > 0 ? edgeOfParentY - (uiTransform.anchoredPosition.y + uiTransform.anchoredPosition.y / 2) : edgeOfParentY + (uiTransform.anchoredPosition.y - uiTransform.anchoredPosition.y / 2); //Distance between edge of child ui and parent ui (Y)
-        float posPercentageX = offsetX / parent.sizeDelta.x;
-        float posPercentageY = offsetY / parent.sizeDelta.y;
-        float posX = uiTransform.anchoredPosition.x > 0 ? (parent.anchoredPosition.x + (parent.sizeDelta.x / 2)) - (uiTransform.anchoredPosition.x + (uiTransform.sizeDelta.x / 2) + (offsetX * posPercentageX)) : (parent.anchoredPosition.x - (parent.sizeDelta.x / 2)) + (uiTransform.anchoredPosition.x - (uiTransform.sizeDelta.x / 2) - (offsetX * posPercentageX));
-        float posY = uiTransform.anchoredPosition.y > 0 ? (parent.anchoredPosition.y + (parent.sizeDelta.y / 2)) - (uiTransform.anchoredPosition.y + (uiTransform.sizeDelta.y / 2) + (offsetY * posPercentageY)) : (parent.anchoredPosition.y - (parent.sizeDelta.y / 2)) + (uiTransform.anchoredPosition.y - (uiTransform.sizeDelta.y / 2) - (offsetY * posPercentageY));
-        uiTransform.position = new Vector2(posX, posY);
+    void UIScaling(RectTransform component, float sizePercentageX, float sizePercentageY, float posPercentageX, float posPercentageY)
+    {
+        GameObject parent = component.parent.gameObject;       
+        RectTransform parentTransform = parent.GetComponent<RectTransform>();
+        
+        //Size
+        component.sizeDelta = new Vector2(parentTransform.sizeDelta.x * sizePercentageX, parentTransform.sizeDelta.y * sizePercentageY);
+
+        //Positioning
+
     }
 }

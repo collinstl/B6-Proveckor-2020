@@ -2185,6 +2185,9 @@ MonoBehaviour:
   pauseIsActive: 0
   uiComponents: []
   parents: []
+  uiButtons: []
+  componentSizes: []
+  componentDistanceFromParent: []
 --- !u!4 &1657457967
 Transform:
   m_ObjectHideFlags: 0
