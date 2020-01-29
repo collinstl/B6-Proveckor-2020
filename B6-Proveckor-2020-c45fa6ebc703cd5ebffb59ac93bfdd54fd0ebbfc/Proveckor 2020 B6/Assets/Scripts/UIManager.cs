@@ -49,15 +49,15 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-    public void PlayButton()
+    public void PlayButton() //Plays Game
     {
         SceneManager.LoadScene("MainScene");
     }
-    public void QuitButton()
+    public void QuitButton() //Exit Game
     {
         Application.Quit();
     }
-    public void MainMenuButton()
+    public void MainMenuButton() //Returns to Scene 1
     {
         SceneManager.LoadScene("Main Menu");
     }

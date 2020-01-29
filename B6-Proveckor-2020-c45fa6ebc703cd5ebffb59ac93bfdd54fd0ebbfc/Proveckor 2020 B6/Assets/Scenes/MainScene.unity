@@ -712,7 +712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &709951376
 Transform:
   m_ObjectHideFlags: 0
@@ -2183,11 +2183,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 709951375}
   setting: {fileID: 707246594}
   pauseIsActive: 0
-  uiComponents: []
-  parents: []
-  uiButtons: []
-  componentSizes: []
-  componentDistanceFromParent: []
+  UIComponents: []
 --- !u!4 &1657457967
 Transform:
   m_ObjectHideFlags: 0
