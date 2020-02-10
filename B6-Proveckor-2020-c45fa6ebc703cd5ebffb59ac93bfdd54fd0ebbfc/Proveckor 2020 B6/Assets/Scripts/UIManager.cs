@@ -6,9 +6,12 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    #region Variables
     public GameObject pauseMenu;
     public GameObject setting;
-    [HideInInspector] public bool pauseIsActive = false;
+    [HideInInspector] public bool pauseIsActive = false; 
+    public CharacterSelection CharSel;
+    #endregion Variables
 
     Vector2 resolution;
 
@@ -49,27 +52,28 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-    public void PlayButton() //Plays Game
+
+    #region Button Functions, St. Ledger
+    public void PlayButton() //Loads Character Selection
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("SelectionScreen");
     }
     public void QuitButton() //Exit Game
     {
         Application.Quit();
     }
-    public void MainMenuButton() //Returns to Scene 1
+    public void MainMenuButton() //Returns to Scene 1, also used in character selection as a back button
     {
         SceneManager.LoadScene("Main Menu");
     }
-
-    public void PauseMenu()
+    public void PauseMenu() //Pauses game and opens pause menu
     {
         if (pauseIsActive)
         {
             pauseMenu.SetActive(false);
             pauseIsActive = false;
             setting.SetActive(false);
-            Time.timeScale = 1;
+            TimeReset();
         }
         else
         {
@@ -78,10 +82,17 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 0;
         }
     }
-    public void TimeReset()
+    public void TimeReset() //Makes sure the timescale is at 1 to avoid game being frozen by mistake
     {
         Time.timeScale = 1;
     }
+    public void StartGame() //Loads game from character selection and loads in skins
+    {
+        SceneManager.LoadScene("MainScene");
+        CharSel.LoadSkin();
+    }
+
+    #endregion Button Function, St. Ledger
 
 
     void UIScaling(RectTransform component, float sizePercentageX, float sizePercentageY, float posPercentageX, float posPercentageY)

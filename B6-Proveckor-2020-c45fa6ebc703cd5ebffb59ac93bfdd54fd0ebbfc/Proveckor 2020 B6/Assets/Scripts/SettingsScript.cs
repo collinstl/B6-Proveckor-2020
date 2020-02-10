@@ -5,8 +5,11 @@ using UnityEngine.Audio;
 
 public class SettingsScript : MonoBehaviour
 {
+    #region Variables
     public AudioMixer mainAudio;
+    #endregion Variables
 
+    #region Settings, St. Ledger
     public void SetVolume(float volume)
     {
         mainAudio.SetFloat("volume", volume);
@@ -21,5 +24,6 @@ public class SettingsScript : MonoBehaviour
     {
         QualitySettings.SetQualityLevel(qualityInex);
     }
+    #endregion Settings, St. Ledger
 
 }
