@@ -87,11 +87,11 @@ public class PlayerController : MonoBehaviour
         #endregion PlayerMovement, Alexander Dolk
         #region PlayerGFX, Alexander Dolk
 
-        for (int i = 1; i < player1Animators.Length; i++)  //ändrade och skapade två animator arrays med en for loop för att effektivisera lite mer samt underlätta olika skins / ledger
+        for (int i = 0; i < player1Animators.Length; i++)  //ändrade och skapade två animator arrays med en for loop för att effektivisera lite mer samt underlätta olika skins / ledger
         {
             player1Animators[i].SetFloat("Speed", rb1.velocity.x);
         }
-        for (int i = 1; i < player1Animators.Length; i++)
+        for (int i = 0; i < player2Animators.Length; i++)
         {
             player2Animators[i].SetFloat("Speed", rb2.velocity.x);
         }

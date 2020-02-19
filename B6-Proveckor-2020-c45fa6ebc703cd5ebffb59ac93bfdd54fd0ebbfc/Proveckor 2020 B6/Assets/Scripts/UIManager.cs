@@ -51,6 +51,11 @@ public class UIManager : MonoBehaviour
                 UIScaling(component.Component, component.sizePercentage.x, component.sizePercentage.y, component.posPercentage.x, component.posPercentage.y);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseMenu();
+        }
     }
 
     #region Button Functions, St. Ledger

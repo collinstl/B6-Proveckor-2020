@@ -6,20 +6,21 @@ using UnityEngine.UI;
 public class BalloonMovement : MonoBehaviour
 {
     //St. Ledger
-
-    public GameObject parent;
+    #region Variables
     public float floatSpeed;
     public float nextSpawn;
     public float destroy;
     public float spawnHeight;
     public float spawnX;
-    bool hasSpawned;
+    bool hasSpawned = false;
+    #endregion Variables
 
     private void Update()
     {
         BalloonMove();
         BalloonSpawner();
         BalloonDestroyer();
+        Debug.Log(transform.position.y);
     }
 
     private void BalloonMove()
@@ -31,6 +32,7 @@ public class BalloonMovement : MonoBehaviour
     {
         if(transform.position.y > nextSpawn &&!hasSpawned)
         {
+            Debug.Log("Aaaanddd Spawn!");
             GameObject.Instantiate(gameObject, new Vector3(spawnX, spawnHeight, 0), Quaternion.identity, transform.parent);
             hasSpawned = true;
         }
