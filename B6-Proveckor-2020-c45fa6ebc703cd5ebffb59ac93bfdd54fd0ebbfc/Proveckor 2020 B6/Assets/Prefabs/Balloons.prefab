@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 3337984559984631605}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10.7364855, y: 10.7364855, z: 7.90055}
+  m_LocalScale: {x: 21.419718, y: 26.774647, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -88,9 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 554c09b8b6cb80242919f13a89abffd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
   floatSpeed: 10
-  nextSpawn: 600
+  nextSpawn: 400
   destroy: 1400
   spawnHeight: -800
   spawnX: 412.5
