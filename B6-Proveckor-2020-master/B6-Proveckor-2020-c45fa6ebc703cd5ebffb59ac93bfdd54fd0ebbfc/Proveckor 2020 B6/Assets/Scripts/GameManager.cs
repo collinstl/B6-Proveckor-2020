@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Animator[] catAnimators;
     public GameObject[] catPoses;
     [HideInInspector] public Animator balloonAnimator;
+    GameObject pointsText; 
 
     public float countdownTimer = 5;
     public int points;
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CatAnimation());
         balloonAnimator = balloon.GetComponentInChildren<Animator>();
         for (int i = 0; i < catPoses.Length; i++) { if (i != 0) { catPoses[i].SetActive(false); } }
+        pointsText = GameObject.Find("PointsText"); 
         #region Camera - Components, Alexander Dolk 
         cam = Camera.main;
         /*cameraRigidbody = cam.GetComponent<Rigidbody2D>();
@@ -59,6 +62,7 @@ public class GameManager : MonoBehaviour
         if (cDistance1 + cDistance2 >= 11.3f) { cam.orthographicSize = (cDistance1 + cDistance2) * .44f; }
         else if (cam.orthographicSize <= 7) { cam.orthographicSize = camDefaultSize; }*/
         #endregion Camera, Alexander Dolk 
+        pointsText.GetComponent<Text>().text = points.ToString(); 
     }
 
     IEnumerator RandomEvent() //Starts a random event after the chosen time has gone to zero
